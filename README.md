@@ -108,11 +108,11 @@ python generate_subtitles_main.py --audio ./audios --output ./subtitles \
 
 ## Example Workflow
 
-# 1. Convert all MP4s to WAVs
+### 1. Convert all MP4s to WAVs
 ```bash
 python video_to_audio.py --input ./videos --output ./audios
 ```
-# 2. Generate subtitles for all WAVs
+### 2. Generate subtitles for all WAVs
 ```bash
 python generate_subtitles_main.py --audio ./audios --output ./subtitles --max_chars_line 40
 ```
