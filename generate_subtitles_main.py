@@ -18,13 +18,13 @@ Arguments
 ---------
 --audio        Path to a single audio file (.wav) or a folder with multiple audio files.
 --output       Output directory for the generated .srt files. (Default: "subtitles")
---model_size   Whisper model size (tiny, base, small, medium, large). Default: large
---device       Device to use ("cpu" or "cuda"). Default: cpu
---compute_type Precision for computations ("int8", "float16", "float32"). Default: int8
---max_lines    Maximum lines per subtitle (default: 2)
---max_chars_line Maximum characters per subtitle line (default: 40)
---min_std_time Minimum subtitle duration in seconds (default: 2)
---max_std_time Maximum subtitle duration in seconds (default: 5)
+--model_size   Whisper model size (tiny, base, small, medium, large). (Default: large)
+--device       Device to use ("cpu" or "cuda"). (Default: cpu)
+--compute_type Precision for computations ("int8", "float16", "float32"). (Default: int8)
+--max_lines    Maximum lines per subtitle (Default: 2)
+--max_chars_line Maximum characters per subtitle line (Default: 40)
+--min_std_time Minimum subtitle duration in seconds (Default: 2)
+--max_std_time Maximum subtitle duration in seconds (Default: 5)
 
 References
 ----------
@@ -68,8 +68,6 @@ def main():
     parser.add_argument("--model_size", type=str, default="large",
                         choices=["tiny", "base", "small", "medium", "large"],
                         help="Whisper model size to use (default: 'large').")
-    # parser.add_argument("--model_path", type=str, required=True,
-    #                     help="Path to the Whisper model folder or file to use.")
     parser.add_argument("--device", type=str, default="cpu",
                         choices=["cpu", "cuda"],
                         help="Hardware used for model execution (default: 'cpu' or 'cuda' for GPU).")
@@ -98,7 +96,6 @@ def main():
     print(f" Input path:   {audio_path}")
     print(f" Output path:  {output_path}")
     print(f" Model:        {args.model_size}")
-    # print(f" Model path:   {args.model_path}")
     print(f"️ Device:     {args.device}")
     print(f"️ Precision:     {args.compute_type}")
     print("-" * 60)
