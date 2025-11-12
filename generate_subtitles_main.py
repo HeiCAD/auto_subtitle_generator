@@ -1,5 +1,5 @@
 """
-main_generate_subtitles.py
+generate_subtitles_main.py
 ==========================
 Generate Subtitles from Audio using Whisper
 
@@ -9,10 +9,10 @@ using OpenAI Whisper (via faster-whisper).
 Usage Example
 -------------
 # Generate subtitles for a single file
-python generate_subtitles.py --audio /path/to/audio.wav --output /path/to/subtitles
+python generate_subtitles_main.py --audio /path/to/audio.wav --output /path/to/subtitles
 
 # Generate subtitles for all .wav files in a folder
-python generate_subtitles.py --audio /path/to/audio/folder --output /path/to/subtitles
+python generate_subtitles_main.py --audio /path/to/audio/folder --output /path/to/subtitles
 
 Arguments
 ---------
