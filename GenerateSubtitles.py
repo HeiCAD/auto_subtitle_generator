@@ -1,5 +1,5 @@
 """
-GenerateSubtitles
+GenerateSubtitles.py
 =================
 
 A module for generating subtitle files (.srt) from audio files using the
