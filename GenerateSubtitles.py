@@ -181,36 +181,49 @@ def split_subtitle_text(text, max_chars_line):
         # Step 1: Roughly divide the text in half
         first_part, second_part = text[:len(text)//2], text[len(text)//2:]
 
-        # Step 2: Find the first space in the second half
-        # This helps to locate where the next word begins
-        second_part_splitted = second_part.partition(' ')
-        second_part_before_space = second_part_splitted[0]
-        second_part_after_space = second_part_splitted[2]
+        # Check if the midpoint is a space or next to a space
+        mid_index = len(text) // 2
 
-        # Step 3: Find the last space in the first half
-        # This identifies where the previous word ends
-        first_part_splitted = first_part.rpartition(' ')
-        first_part_before_space = first_part_splitted[0]
-        first_part_after_space = first_part_splitted[2]
-
-        # Step 4: Combine the word fragments that were split in half
-        middle_word = first_part_after_space + second_part_before_space
-
-        # Step 5: Decide how to balance the two lines
-        # If the first line is much shorter, or the split word contains punctuation,
-        # keep the combined middle word on the first line.
-        if len(first_part_before_space) < len(second_part_after_space) or any(
-            elem in middle_word for elem in punctuation
-        ):
-            first_line = first_part_before_space + ' ' + middle_word
-            second_line = second_part_after_space
+        # Case 1: midpoint is a space
+        if text[mid_index] == ' ':
+            text = text[:mid_index] + "\n" + text[mid_index + 1:]
+        # Case 2: character before midpoint is a space
+        elif mid_index > 0 and text[mid_index - 1] == ' ':
+            text = text[:mid_index - 1] + "\n" + text[mid_index:]
+        # Case 3: character after midpoint is a space
+        elif mid_index < len(text) - 1 and text[mid_index + 1] == ' ':
+            text = text[:mid_index + 1].rstrip() + "\n" + text[mid_index + 2:]
         else:
-            # Otherwise, move the middle word to the second line
-            first_line = first_part_before_space
-            second_line = middle_word + ' ' + second_part_after_space
+            # Step 2: Find the first space in the second half
+            # This helps to locate where the next word begins
+            second_part_splitted = second_part.partition(' ')
+            second_part_before_space = second_part_splitted[0]
+            second_part_after_space = second_part_splitted[2]
 
-        # Step 6: Join both lines with a newline
-        text = first_line + "\n" + second_line
+            # Step 3: Find the last space in the first half
+            # This identifies where the previous word ends
+            first_part_splitted = first_part.rpartition(' ')
+            first_part_before_space = first_part_splitted[0]
+            first_part_after_space = first_part_splitted[2]
+
+            # Step 4: Combine the word fragments that were split in half
+            middle_word = first_part_after_space + second_part_before_space
+
+            # Step 5: Decide how to balance the two lines
+            # If the first line is much shorter, or the split word contains punctuation,
+            # keep the combined middle word on the first line.
+            if len(first_part_before_space) < len(second_part_after_space) or any(
+                elem in middle_word for elem in punctuation
+            ):
+                first_line = first_part_before_space + ' ' + middle_word
+                second_line = second_part_after_space
+            else:
+                # Otherwise, move the middle word to the second line
+                first_line = first_part_before_space
+                second_line = middle_word + ' ' + second_part_after_space
+
+            # Step 6: Join both lines with a newline
+            text = first_line + "\n" + second_line
 
     return text
 
